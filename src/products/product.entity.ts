@@ -1,30 +1,36 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
-import { User } from "../users/users.entity";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from '../users/users.entity';
 
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Column()
-  name: string
+  name: string;
 
   @Column()
-  sku: string
+  sku: string;
 
   @Column()
-  amount: number
+  amount: number;
 
   @Column()
-  price: number
+  price: number;
 
-  @Column({ name: "created_at", type: "timestamptz"})
-  createdAt: Date
+  @Column({ name: 'created_at', type: 'timestamptz' })
+  createdAt: Date;
 
-  @Column({ name: "updated_at", type: "timestamptz"})
-  updatedAt: Date
+  @Column({ name: 'updated_at', type: 'timestamptz' })
+  updatedAt: Date;
 
-  @ManyToOne(type => User, user => user.products)
+  @ManyToOne((type) => User, (user) => user.products)
   @JoinColumn({ name: 'user_id' })
-  user: User
+  user: User;
 }
