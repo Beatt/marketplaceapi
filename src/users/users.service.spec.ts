@@ -2,8 +2,8 @@ import { UserService } from './users.service'
 import { Test } from '@nestjs/testing'
 import { AppModule } from '../app.module'
 import { DataSource } from 'typeorm'
-import { UsersServicePage } from '../../test/objectpages/UsersServicePage'
-import { User } from './users.entity'
+import { UsersServicePage } from '../../test/objectpages/usersServicePage'
+import { User } from './entities/user.entity'
 
 describe('UsersService', function () {
   let usersService: UserService
