@@ -1,5 +1,3 @@
 describe('UsersController', () => {
-  it("test", function() {
-
-  });
+  it('test', function () {})
 })

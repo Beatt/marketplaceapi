@@ -1,32 +1,23 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  OneToMany,
-} from 'typeorm';
-import { Role } from '../roles/role.entity';
-import { Product } from '../products/product.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
+import { Product } from '../products/product.entity'
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column({ unique: true })
-  email: string;
+  email: string
+
+  @Column()
+  password: string
 
   @Column({ name: 'created_at', type: 'timestamptz' })
-  createdAt: Date;
+  createdAt: Date
 
   @Column({ name: 'updated_at', type: 'timestamptz' })
-  updatedAt: Date;
-
-  @ManyToOne((type) => Role)
-  @JoinColumn({ name: 'role_id' })
-  role: Role;
+  updatedAt: Date
 
   @OneToMany((type) => Product, (product) => product.user)
-  products: Product;
+  products: Product
 }

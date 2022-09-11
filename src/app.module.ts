@@ -1,10 +1,9 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './users/users.module';
-import { User } from './users/users.entity';
-import { ConfigModule } from '@nestjs/config';
-import { Role } from './roles/role.entity';
-import { Product } from './products/product.entity';
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { UsersModule } from './users/users.module'
+import { User } from './users/users.entity'
+import { ConfigModule } from '@nestjs/config'
+import { Product } from './products/product.entity'
 
 @Module({
   imports: [
@@ -18,7 +17,7 @@ import { Product } from './products/product.entity';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: `${process.env.APP_NAME}_${process.env.APP_ENV}`,
-      entities: [User, Role, Product],
+      entities: [User, Product],
       synchronize: true,
     }),
     UsersModule,
