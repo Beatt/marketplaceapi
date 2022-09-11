@@ -1,14 +1,20 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UsersModule } from './users/users.module'
-import { User } from './users/users.entity'
 import { ConfigModule } from '@nestjs/config'
-import { Product } from './products/product.entity'
+import { ProductsModule } from './products/products.module'
+import { Product } from './products/entities/product.entity'
+import { User } from './users/entities/user.entity'
+
+let envFilePath = ['.env.development.local', '.env.development']
+if (process.env.NODE_ENV === 'test') {
+  envFilePath = ['.env.test.local', '.env.test']
+}
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.development.local', '.env.development'],
+      envFilePath
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -21,6 +27,7 @@ import { Product } from './products/product.entity'
       synchronize: true,
     }),
     UsersModule,
+    ProductsModule,
   ],
 })
 export class AppModule {}

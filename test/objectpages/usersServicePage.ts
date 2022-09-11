@@ -1,4 +1,4 @@
-import { CreateUserDto } from '../../src/users/create-user.dto'
+import { CreateUserDto } from '../../src/users/dto/create-user.dto'
 
 export class UsersServicePage {
   static createUserDto(name: string, password: string) {

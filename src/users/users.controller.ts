@@ -1,37 +1,41 @@
-import { Body, Controller, Post, UnprocessableEntityException } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, UnprocessableEntityException } from "@nestjs/common";
 import { UserService } from './users.service'
-import { User } from './users.entity'
-import { CreateUserDto } from './create-user.dto'
-import * as yup from 'yup'
+import { CreateUserDto } from './dto/create-user.dto'
 import { HttpException } from '@nestjs/common/exceptions/http.exception'
+import { User } from './entities/user.entity'
+import { AuthUserDto } from "./dto/auth-user.dto";
 
-@Controller('/users')
+@Controller('users')
 export class UsersController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async post(@Body() createUserDto: CreateUserDto): Promise<User | HttpException> {
-    let schema = yup.object().shape({
-      email: yup.string().email(),
-      password: yup.string().required(),
-    })
-
-    try {
-      await schema.validate(createUserDto, { abortEarly: false })
-    } catch (err) {
-      throw new UnprocessableEntityException({
-        message: '¡Campos invalidaos al crear el usuario!',
-        errors: err.errors,
-      })
-    }
-
+  async create(@Body() createUserDto: CreateUserDto): Promise<User | HttpException> {
     try {
       return await this.userService.createUser(createUserDto)
     } catch ({ message }) {
       const errors: any = []
       errors.push(message)
       throw new UnprocessableEntityException({
-        message: '¡Ha ocurrido un error al crear el usuario!',
+        message: 'Error on create user',
+        errors,
+      })
+    }
+  }
+  @Get(':id')
+  async findOne(@Param('id') id: number): Promise<User|null> {
+    return await this.userService.getUserById(id)
+  }
+
+  @Post("/auth")
+  async authUser(@Body() authUserDto: AuthUserDto) {
+    try {
+      return await this.userService.authUser(authUserDto)
+    } catch({ message }) {
+      const errors: any = []
+      errors.push(message)
+      throw new UnprocessableEntityException({
+        message: 'Error on auth user',
         errors,
       })
     }
