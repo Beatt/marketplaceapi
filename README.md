@@ -35,3 +35,11 @@ Casos de uso
 ## Formatting code
 
 `npm run format`
+
+## DOCS
+
+![](./docs/entidadrelacion.png)
+
+![](./docs/casodeuso-usuario.png)
+
+![](./docs/casodeuso-productos.png)
