@@ -48,7 +48,7 @@ describe('ProductsService', () => {
       expect(product).toEqual(productFound)
     })
 
-    it('show message error when product exist', async () => {
+    it('show message error when user not exist', async () => {
       createProductDto.user_id = 0
 
       await expect(productsService.create(createProductDto)).rejects.toEqual({ message: 'El usuario no existe' })
